@@ -1,26 +1,198 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* React DatePicker Custom Styles */
+.react-datepicker {
+  @apply border-border/20 shadow-2xl rounded-2xl font-sans bg-white dark:bg-slate-900;
+  font-family: inherit !important;
+}
+
+.react-datepicker__header {
+  @apply bg-white dark:bg-slate-900 border-b border-border/20 rounded-t-2xl pb-3;
+  padding-top: 0.75rem;
+}
+
+.react-datepicker__current-month {
+  @apply text-foreground font-semibold text-base mb-3;
+  padding-bottom: 0.5rem;
+}
+
+.react-datepicker__day-names {
+  @apply flex justify-between;
+  margin: 0;
+  padding: 0 0.5rem;
+}
+
+.react-datepicker__day-name {
+  @apply text-muted-foreground text-xs font-semibold uppercase tracking-wider;
+  width: 2.5rem;
+  height: 2.5rem;
+  line-height: 2.5rem;
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.react-datepicker__month {
+  @apply p-3;
+  margin: 0;
+}
+
+.react-datepicker__week {
+  @apply flex justify-between;
+  margin: 0.25rem 0;
+}
+
+.react-datepicker__day {
+  width: 2.5rem;
+  height: 2.5rem;
+  line-height: 2.5rem;
+  margin: 0;
+  @apply flex items-center justify-center rounded-full text-sm font-normal transition-all duration-200;
+  @apply hover:bg-primary/10;
+}
+
+.react-datepicker__day--selected,
+.react-datepicker__day--keyboard-selected {
+  @apply bg-primary text-white hover:bg-primary font-semibold;
+  border-radius: 50% !important;
+}
+
+.react-datepicker__day--today {
+  @apply bg-accent/50 text-accent-foreground font-semibold;
+  border: 2px solid hsl(var(--primary) / 0.5);
+  border-radius: 50% !important;
+}
+
+.react-datepicker__day--disabled {
+  @apply text-muted-foreground opacity-30 cursor-not-allowed;
+  @apply hover:bg-transparent hover:text-muted-foreground;
+}
+
+.react-datepicker__day--outside-month {
+  @apply text-muted-foreground opacity-40;
+}
+
+.react-datepicker__navigation {
+  top: 1rem;
+  @apply rounded-lg hover:bg-primary/10 transition-colors;
+}
+
+.react-datepicker__navigation--previous {
+  left: 1rem;
+}
+
+.react-datepicker__navigation--next {
+  right: 1rem;
+}
+
+.react-datepicker__navigation-icon::before {
+  border-color: hsl(var(--foreground) / 0.7);
+}
+
+.react-datepicker__navigation:hover .react-datepicker__navigation-icon::before {
+  border-color: hsl(var(--primary));
+}
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: 30 30% 98%;
+  --foreground: 210 20% 15%;
+  --border: 35 25% 88%;
+  --input: 35 25% 88%;
+  --ring: 180 45% 55%;
+
+  --card: 0 0% 100%;
+  --card-foreground: 210 20% 15%;
+
+  --popover: 0 0% 100%;
+  --popover-foreground: 210 20% 15%;
+
+  --primary: 180 45% 55%;
+  --primary-foreground: 0 0% 100%;
+
+  --secondary: 35 40% 85%;
+  --secondary-foreground: 210 20% 15%;
+
+  --muted: 35 20% 92%;
+  --muted-foreground: 210 15% 45%;
+
+  --accent: 15 70% 75%;
+  --accent-foreground: 210 20% 15%;
+
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 0 0% 100%;
+
+  --radius: 1rem;
+  --shadow-soft: 0 20px 45px rgba(15, 23, 42, 0.08);
+  --shadow-medium: 0 30px 60px rgba(15, 23, 42, 0.12);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+.dark {
+  --background: 210 25% 12%;
+  --foreground: 35 30% 95%;
+
+  --card: 210 22% 15%;
+  --card-foreground: 35 30% 95%;
+
+  --popover: 210 22% 15%;
+  --popover-foreground: 35 30% 95%;
+
+  --primary: 180 45% 55%;
+  --primary-foreground: 0 0% 100%;
+
+  --secondary: 210 20% 20%;
+  --secondary-foreground: 35 30% 95%;
+
+  --muted: 210 20% 20%;
+  --muted-foreground: 35 15% 65%;
+
+  --accent: 15 65% 65%;
+  --accent-foreground: 0 0% 100%;
+
+  --destructive: 0 62.8% 50%;
+  --destructive-foreground: 0 0% 100%;
+
+  --border: 210 20% 25%;
+  --input: 210 20% 25%;
+  --ring: 180 45% 55%;
+
+  --shadow-soft: 0 20px 45px rgba(0, 0, 0, 0.35);
+  --shadow-medium: 0 30px 60px rgba(0, 0, 0, 0.5);
 }
 
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    color-scheme: light;
+  }
+
+  .dark {
+    color-scheme: dark;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+.custom-calendar {
+  border: none !important;
+  font-family: inherit;
+}
+
+.react-datepicker__day--selected,
+.react-datepicker__day--keyboard-selected {
+  background-color: hsl(var(--primary)) !important;
+  color: white !important;
+  border-radius: 50% !important;
+}
+
+.react-datepicker__day:hover {
+  background-color: hsl(var(--primary) / 0.2) !important;
+  border-radius: 50%;
 }
